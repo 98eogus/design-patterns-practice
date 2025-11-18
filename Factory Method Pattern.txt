@@ -1,0 +1,69 @@
+Factory Method Pattern
+1. 팩토리 메서드 패턴이란?
+객체 생성 책임을 한 곳(Factory)으로 모아두고
+클라이언트가 구체적인 클래스(new EmailSender) 를 모르도록 만드는 패턴이다.
+
+즉,
+어떤 객체를 만들지 선택하는 코드(분기)를 한 곳에 모으고
+인터페이스 기반으로 객체를 생성하며
+클라이언트는 오직 인터페이스에만 의존하도록 만드는 패턴.
+➡ “객체 생성 로직의 캡슐화”가 핵심.
+
+2. 왜 필요한가?
+실무에서는 “타입이 여러 개이고, 상황에 따라 그 중 하나를 골라야 하는 구조”가 매우 많다.
+예시:
+✔ 메시지 발송 시스템
+EmailSender
+SmsSender
+SlackSender
+✔ 결제 모듈
+KakaoPay
+CardPay
+TossPay
+✔ 로그 저장 방식 선택
+FileLogger
+DbLogger
+CloudLogger
+✔ 파일 파서
+CsvParser
+ExcelParser
+JsonParser
+
+이런 경우 new EmailSender() 같은 생성 코드가 여기저기 퍼지면:
+유지보수 어려움
+새로운 타입 추가 시 전체 코드 수정 필요
+테스트 어려움
+따라서 “생성의 중앙화"가 필요 → Factory 패턴이 답.
+
+3. 구현 포인트
+기능	설명
+인터페이스(IMessageSender)	공통 동작을 정의(추상화)
+EmailSender / SmsSender	실제 구현 클래스
+Factory 클래스	어떤 구현체를 생성할지 결정
+static Create()	객체 생성의 단일 진입점
+switch / if 대신 Factory 사용	생성 로직을 한 곳에서 관리
+
+4. 장점 (Advantages)
+1) 객체 생성 코드가 한 곳에 집중됨 (캡슐화)
+여기저기 퍼져 있는 new EmailSender() 제거!
+2) 클라이언트가 구체 클래스 몰라도 됨 (의존성 ↓)
+인터페이스(IMessageSender)만 의존 → DIP 준수
+3) 새로운 타입 확장 쉬움 (OCP)
+SlackSender 추가할 때:
+"Slack" => new SlackSender()
+팩토리만 수정 → 나머지 로직은 그대로.
+4) 테스트 용이
+MockSender 테스트 가능:
+IMessageSender sender = new FakeMessageSender();
+DI와도 궁합 최고!
+
+5. 단점 (Disadvantages)
+1) 구조가 처음엔 조금 복잡해 보임
+작은 프로젝트엔 과하다고 느껴질 수도 있음.
+2) 팩토리 메서드 수정 필요
+새로운 타입이 늘어나면 Factory 내부 수정이 계속 필요함.
+➡ 실무에서는 enum + switch 제거하려고
+DI Container / Reflection을 사용해 자동화하기도 함.
+3) 문자열 기반 분기 시 위험
+"Email", "SMS" 이런 문자열 하드코딩은 오타 문제 발생 가능
+→ enum 또는 타입 기반 Factory로 개선 필요.

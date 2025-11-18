@@ -1,0 +1,72 @@
+Observer Pattern 
+1. 옵저버 패턴이란? 
+**주체(Subject)**의 상태가 바뀌면
+그 주체를 **구독(Observer)**하고 있는 객체들에게
+자동으로 알림을 전달하는 패턴.
+
+즉,
+Subject는 데이터를 가진 “발행자(Publisher)”
+Observer는 변화를 감지하고 반응하는 “구독자(Subscriber)”
+한 번의 변경 → 여러 컴포넌트가 동시에 업데이트됨
+유튜브 구독 알림과 동일한 구조.
+
+2. 왜 사용하는가?
+✔ 여러 객체가 “같은 데이터를 사용”할 때 자동으로 동기화시키기 위함
+예)
+온도 변화 → 여러 화면이 동시에 갱신
+사용자 입력 → 여러 요소가 반응
+모델 데이터 변경 → UI 즉시 반영
+✔ 느슨한 결합(Loose Coupling)
+Subject는 각각의 Observer가 무엇인지 모른다.
+→ 단지 “Update()가 있다”는 사실만 안다.
+✔ 확장성
+새로운 Observer 추가해도 기존 코드 수정 없음.
+
+3. 실무에서 어떻게 쓰이는가?
+🟦 (1) WPF / MVVM — 가장 대표적인 옵저버
+WPF의 INotifyPropertyChanged는 옵저버 패턴 그 자체.
+ViewModel 값 변경 → View(UI) 자동 반영
+실무 WPF 개발자는 옵저버 패턴을 쓰지 않을 수 없음
+예)
+PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+이게 바로 Notify.
+🟩 (2) MES/WMS UI 모니터링
+예)
+온도 센서 값 변경 → 대시보드 3곳, 알람창, 로그창 동시에 갱신
+설비 상태(동작/정지/에러) 업데이트 → 여러 모듈 반응
+옵저버 없으면 → if-else로 화면마다 수동 호출해야 함(끔찍…)
+🟨 (3) 게임 개발
+Player 체력 변경 → HP바, 이펙트, 사운드, 진동이 동시에 반응
+아이템 획득 → 퀘스트 갱신, UI 갱신, 로그 기록
+Unity의 Event System이 옵저버 패턴 기반.
+🟥 (4) 백엔드 이벤트 기반 구조
+Domain Event
+EventBus
+Messaging (Kafka, RabbitMQ)
+모두 옵저버 기반.
+예)
+OrderCreated → EmailSender + StockService + NotificationService 반응
+
+4. 장점 (Advantages)
+1) 느슨한 결합 (강력한 장점)
+Subject는 Observer의 형태, 구현, 개수를 전혀 모른다.
+→ 유지보수 쉬움
+2) 확장성이 뛰어남
+옵저버 추가할 때 Subject 수정 없음.
+OCP(개방-폐쇄 원칙) 충족.
+3) 자동 동기화
+Subject 데이터만 바꾸면
+Observer가 자동으로 업데이트됨.
+4) UI 구조에 필수
+WPF, MVVM, React 등 UI 프레임워크의 핵심 패턴.
+
+5. 단점 (Disadvantages)
+1) 흐름 파악이 어려울 수 있음
+어디서 어떤 Observer들이 반응하는지 코드로는 보이지 않음.
+(구독이 많을수록 디버깅 어렵다)
+2) 메모리 누수 가능성
+Observer를 Unregister 안 하면 계속 남음.
+WPF에서는 특히 심각함
+→ 이벤트 핸들러에서 자주 발생
+3) 호출 순서 보장이 어려움
+Observer가 여러 개일 때 Update가 어떤 순서로 실행될지 예측하기 어려움.
