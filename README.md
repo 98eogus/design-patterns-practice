@@ -29,6 +29,7 @@ public class LogManager {
 객체 생성 로직을 한 곳으로 캡슐화
 
 코드예시
+
 var sender = MessageSenderFactory.Create("Email");
 sender.Send("Hello");
 
@@ -37,7 +38,8 @@ sender.Send("Hello");
 SQL 생성 과정을 단계별로 조립
 
 
-사용 예
+코드 예시
+
 var query = new SqlQueryBuilder()
     .Select("*")
     .From("Users")
@@ -50,14 +52,16 @@ var query = new SqlQueryBuilder()
 정렬 알고리즘(오름차순, 내림차순 등)을 전략 객체로 분리하여
 유연하게 교체 가능하도록 구성.
 
-사용 예
+코드 예시
+
 sorter.SetStrategy(new AscendingSorter());
 
 # Observer Pattern
 🔍 목적
 Subject의 상태 변화를 Observer에게 자동 알림
 
-사용 예
+코드 예시
+
 weather.Register(phone);
 weather.Register(tv);
 
