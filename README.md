@@ -19,31 +19,23 @@ Observer Pattern
 → 로그 관리와 같은 공용 객체에 적합
 
 코드 예시
-public sealed class LogManager
-{
+public sealed class LogManager {
     private static readonly LogManager _instance = new LogManager();
     public static LogManager Instance => _instance;
-
-    private LogManager() { }
-
-    public void Log(string message)
-    {
-        Console.WriteLine($"[LOG] {message}");
-    }
 }
-
-사용 예
-var logger = LogManager.Instance;
-logger.Log("Singleton Test");
 
 # Factory Method Pattern
 🔍 목적
 객체 생성 로직을 한 곳에서 통합 관리하여
 클라이언트가 구체 클래스에 의존하지 않도록 함.
 
+코드예시
+var sender = MessageSenderFactory.Create("Email");
+sender.Send("Hello");
+
 # Builder Pattern
 🔍 목적
-복잡한 객체(여기서는 SQL Query)를 단계별로 조립
+SQL을 단계별로 조립
 
 
 사용 예
@@ -61,7 +53,6 @@ var query = new SqlQueryBuilder()
 
 사용 예
 sorter.SetStrategy(new AscendingSorter());
-var result = sorter.Sort(values);
 
 # Observer Pattern
 🔍 목적
