@@ -20,8 +20,11 @@ Observer Pattern
 코드 예시
 
 public class LogManager {
+
     private static readonly LogManager _instance = new LogManager();
+
     public static LogManager Instance => _instance;
+
 }
 
 # Factory Method Pattern
@@ -31,6 +34,7 @@ public class LogManager {
 코드예시
 
 var sender = MessageSenderFactory.Create("Email");
+
 sender.Send("Hello");
 
 # Builder Pattern
