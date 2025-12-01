@@ -3,10 +3,14 @@
 C# 콘솔 애플리케이션으로 디자인패턴 5가지를 구현한 학습용 프로젝트입니다.
 
 Singleton Pattern
-Factory Method Pattern
-Builder Pattern
-Strategy Pattern
-Observer Pattern
+
+Factory Method Pattern 
+
+Builder Pattern 
+
+Strategy Pattern 
+
+Observer Pattern 
 
 
 # Singleton Pattern
@@ -39,11 +43,8 @@ logger.Log("Singleton Test");
 
 # Builder Pattern
 🔍 목적
-복잡한 객체(여기서는 SQL Query)를 단계별로 조립하고
-가독성 높은 Fluent API를 제공.
+복잡한 객체(여기서는 SQL Query)를 단계별로 조립
 
-UML
-SqlQueryBuilder -> Build() -> SqlQuery
 
 사용 예
 var query = new SqlQueryBuilder()
@@ -75,8 +76,7 @@ weather.SetTemperature(30.1f);
 
 # 배운 점
 객체 생성, 변경, 확장에 대한 책임을 분리하는 법을 익힘
-패턴 적용을 통해 재사용성, 유지보수성, 확장성이 좋아지는 구조를 체감
-단순 예제가 아니라 실제 시나리오에 패턴을 적용하면서
-현업 코드에서 디자인패턴이 필요한 이유를 명확히 이해하게 됨
 
-SOLID 원칙 중 특히 **OCP(개방-폐쇄 원칙)**와 **SRP(단일 책임 원칙)**의 중요성을 경험
+패턴 적용을 통해 재사용성, 유지보수성, 확장성이 좋아지는 구조를 체감
+
+
