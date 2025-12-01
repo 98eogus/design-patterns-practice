@@ -15,8 +15,7 @@ Observer Pattern
 
 # Singleton Pattern
 🔍 목적
-애플리케이션 전체에서 하나의 인스턴스만 생성해 공유하도록 보장
-→ 로그 관리와 같은 공용 객체에 적합
+전역 인스턴스를 하나만 유지하여 로그 관리 등 공용 객체에 사용
 
 코드 예시
 public sealed class LogManager {
@@ -26,8 +25,7 @@ public sealed class LogManager {
 
 # Factory Method Pattern
 🔍 목적
-객체 생성 로직을 한 곳에서 통합 관리하여
-클라이언트가 구체 클래스에 의존하지 않도록 함.
+객체 생성 로직을 한 곳으로 캡슐화
 
 코드예시
 var sender = MessageSenderFactory.Create("Email");
@@ -35,7 +33,7 @@ sender.Send("Hello");
 
 # Builder Pattern
 🔍 목적
-SQL을 단계별로 조립
+SQL 생성 과정을 단계별로 조립
 
 
 사용 예
@@ -56,7 +54,7 @@ sorter.SetStrategy(new AscendingSorter());
 
 # Observer Pattern
 🔍 목적
-주제(Subject)의 상태 변경을 구독자(Observer)에게 자동으로 알리는 이벤트 모델 구현.
+Subject의 상태 변화를 Observer에게 자동 알림
 
 사용 예
 weather.Register(phone);
