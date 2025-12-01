@@ -18,7 +18,8 @@ Observer Pattern
 전역 인스턴스를 하나만 유지하여 로그 관리 등 공용 객체에 사용
 
 코드 예시
-public sealed class LogManager {
+
+public class LogManager {
     private static readonly LogManager _instance = new LogManager();
     public static LogManager Instance => _instance;
 }
